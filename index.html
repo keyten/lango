@@ -13,6 +13,7 @@
 <link rel="canonical" href="https://keyten.github.io/lango/" />
 <meta property="og:url" content="https://keyten.github.io/lango/" />
 <meta property="og:site_name" content="lango" />
+<script src="/lango/lango.js"></script>
 <script type="application/ld+json">
 {"@type":"WebSite","headline":"Welcome to GitHub Pages","url":"https://keyten.github.io/lango/","name":"lango","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
@@ -32,11 +33,82 @@
       <section id="main_content">
         <h2 id="welcome-to-github-pages">Random Français sentences</h2>
 
-<p>Blah.</p>
+<p id="sentence">Blah.</p>
 
+        <div id="buttons">
+          <button id="fail">Fail</button>
+          <button id="hard">Hard</button>
+          <button id="good">Good</button>
+          <button id="perfect">Perfect</button>
+        </div>
+        
 </section>
     </div>
 
-    
+<script>
+window.addEventListener('load', init);
+  
+function init(){
+  var fail = document.getElementById('fail');
+  var hard = document.getElementById('hard');
+  var good = document.getElementById('good');
+  var perfect = document.getElementById('perfect');
+  var sentence = document.getElementById('sentence');
+  function updateSentence() {
+    var sent = getRandomSentence();
+    sentence.innerText = sent.text;
+  }
+
+  function sentenceFinish(sent, rating){
+    updateSentence();
+  }
+
+  fail.addEventListener('click', function(){
+    sentenceFinish({}, -1);
+  });
+  hard.addEventListener('click', function(){
+    sentenceFinish({}, -0.5);
+  });
+  good.addEventListener('click', function(){
+    sentenceFinish({}, 0.65);
+  });
+  perfect.addEventListener('click', function(){
+    sentenceFinish({}, 1);
+  });
+  
+  updateSentence();
+}
+</script>
+    <style>
+      #sentence {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 25px;
+        border: solid 1px black;
+      }
+      
+      #buttons {
+        display: flex;
+        justify-content: space-around;
+      }
+      
+      #buttons button {
+        font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+        font-size: 15px;
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+        border: solid 1px black;
+        padding: 10px 32px;
+        cursor: pointer;
+      }
+      
+      #buttons button:hover {
+        background: rgba(0, 0, 0, 0.5);
+      }
+      
+      #buttons button:active {
+        background: black;
+      }
+    </style>
   </body>
 </html>
