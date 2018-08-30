@@ -213,7 +213,7 @@ Object.keys(verbTemplate).forEach(verb => {
 function getForm(time, subject, forms){
 	var pronoun = subject.pronoun;
 	if(!pronoun){
-		pronoun = subject.plural ? 'il': 'ils';
+		pronoun = subject.plural ? 'ils': 'il';
 	}
 
 	return forms[`[${time}, ${pronoun}]`];
