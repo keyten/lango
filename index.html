@@ -78,9 +78,6 @@ function init(){
   perfect.addEventListener('click', function(){
     sentenceFinish({}, 1);
   });
-  
-  updateSentence();
-
 
   var checker_en = document.getElementById('checker_en');
   var checker_fr = document.getElementById('checker_fr');
@@ -98,6 +95,7 @@ function init(){
   }
   
   setlang('en');
+  updateSentence();
 }
 </script>
     <style>
