@@ -13,7 +13,8 @@
 <link rel="canonical" href="https://keyten.github.io/lango/" />
 <meta property="og:url" content="https://keyten.github.io/lango/" />
 <meta property="og:site_name" content="lango" />
-<script src="/lango/lango.js"></script>
+<script src="/lango/lango_en.js"></script>
+<script src="/lango/lango_fr.js"></script>
 <script type="application/ld+json">
 {"@type":"WebSite","headline":"Welcome to GitHub Pages","url":"https://keyten.github.io/lango/","name":"lango","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
@@ -32,7 +33,8 @@
     <div class="container">
       <section id="main_content">
         <h2 id="welcome-to-github-pages">Random Français sentences</h2>
-
+        <div id="checker_en"><span>English</span> <a href="#" onclick="setlang('fr')">Français</a></div>
+        <div id="checker_fr"><a href="#" onclick="setlang('en')">English</a> <span>Français</span></div>
 <p id="sentence">Blah.</p>
 
         <div id="buttons">
@@ -49,6 +51,7 @@
 window.addEventListener('load', init);
   
 function init(){
+  var getRandomSentence;
   var fail = document.getElementById('fail');
   var hard = document.getElementById('hard');
   var good = document.getElementById('good');
@@ -77,6 +80,24 @@ function init(){
   });
   
   updateSentence();
+
+
+  var checker_en = document.getElementById('checker_en');
+  var checker_fr = document.getElementById('checker_fr');
+  
+  function setlang(lang){
+    if(lang === 'en'){
+      getRandomSentence = getRandomEnglishSentence;
+      checker_en.style.display = 'block';
+      checker_fr.style.display = 'none';
+    } else if(lang === 'fr'){
+      getRandomSentence = getRandomFrenchSentence;
+      checker_en.style.display = 'none';
+      checker_fr.style.display = 'block';
+    }
+  }
+  
+  setlang('en');
 }
 </script>
     <style>
