@@ -4,15 +4,30 @@ const rating = {
 
 const nouns = {};
 
-['je', 'tu', 'il', 'elle', 'vous', 'nous', 'ils', 'elles'].forEach((word) => {
-	nouns[word] = (options) => {
-		if (word[word.length - 1] === 's') {
+const pronouns = {
+	je: ['je', 'me', 'me'],
+	tu: ['tu', 'te', 'te'],
+	il: ['il', 'le', 'lui'],
+	elle: ['elle', 'la', 'lui'],
+	vous: ['vous', 'vous', 'vous'],
+	nous: ['nous', 'nous', 'nous'],
+	ils: ['ils', 'les', 'leur'],
+	elles: ['elles', 'les', 'leur']
+};
+
+Object.keys(pronouns).forEach(pronoun => {
+	nouns[pronoun] = options => {
+		if (pronoun[pronoun.length - 1] === 's') {
 			options.plural = true;
 		}
-		options.pronoun = word;
+		options.pronoun = pronoun;
 
-		return word;
-	};
+		if (options.case === 'accusative') {
+			return pronouns[pronoun][1];
+		}
+
+		return pronouns[pronoun][0];
+	}
 });
 
 `
@@ -208,7 +223,7 @@ Object.keys(verbTemplate).forEach(verb => {
 
 		return form;
 	};
-})
+});
 
 function getForm(time, subject, forms){
 	var pronoun = subject.pronoun;
@@ -222,16 +237,17 @@ function getForm(time, subject, forms){
 const generators = {
 	// Indicatif
 	'présent': ({subject, object, verb}, options) => {
-		var text = `${subject(
-			options.subject
-		)} ${verb(
+		var text = `${subject({
+			...options.subject,
+			case: 'nominative'
+		})} ${verb(
 			'présent',
 			options.verb.negation,
 			options.subject
-		)} ${object(
-			options.object.defined,
-			options.object.plural
-		)}`;
+		)} ${object({
+			...options.object,
+			case: 'accusative'
+		})}`;
 
 		return {
 			text: text[0].toUpperCase() + text.slice(1)
